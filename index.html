@@ -10,12 +10,8 @@
     padding: 0;
     height: 100vh;
     width: 100%;
-  }
-
-  body {
-    background: #eaf9e7;
-    background-image: url("https://images.unsplash.com/photo-1548159417-f283998827c1?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2ODk3NTQ5MDF8&ixlib=rb-4.0.3&q=70");
-    background-size: cover;
+    line-height: 0.8;
+    /* background-color: #000; */
   }
 
   button {
@@ -261,23 +257,6 @@
       color: #38c780;
     }
   }
-  .support {
-    position: absolute;
-    right: 10px;
-    bottom: 10px;
-    padding: 10px;
-    display: flex;
-  }
-  .support a {
-    margin: 0 10px;
-    color: #fff;
-    font-size: 1.8rem;
-    backface-visibility: hidden;
-    transition: all 150ms ease;
-  }
-  .support a:hover {
-    transform: scale(1.1);
-  }
 
   /* //adedd */
 
@@ -316,171 +295,248 @@
     transition-delay: 0.2s;
     transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
   }
-</style>
+  #video-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+  }
+  .grid-div {
+    display: grid;
+    position: absolute;
+    z-index: 0;
+    background-color: transparent;
+    grid-template-columns: repeat(4, 1fr);
+    height: 50vh;
+    mix-blend-mode: difference;
+    bottom: 0;
+    right: 0;
+    left: 0;
+  }
 
-<nav class="nav nav--opened">
-  <div class="nav--inner">
-    <button class="btn--nav" data-btn-close>
+  @font-face {
+    font-family: "Uzi";
+    src: url("https://raw.githubusercontent.com/vickkie/uzitrake/main/fonts/DiamondGrotesk.woff") format("woff");
+    font-weight: bold;
+    font-style: normal;
+  }
+  .xb {
+    font-size: 50vh;
+    color: #fff;
+    font-family: Uzi;
+  }
+  .xb-1 {
+    font-size: 1.5rem;
+    color: #fff;
+    font-family: Uzi;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 117px;
+    grid-template-areas:
+      "inspire"
+      "links";
+  }
+  .inspire {
+    grid-area: inspire;
+  }
+
+  .support {
+    display: flex;
+    grid-area: links;
+  }
+  .support a {
+    margin: 0 10px;
+    color: #fff;
+    font-size: 1.8rem;
+    backface-visibility: hidden;
+    transition: all 150ms ease;
+  }
+  .support a:hover {
+    transform: translateY(-10px);
+  }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+<body>
+  <video id="video-background" autoplay muted loop poster="https://i.postimg.cc/BZ8YmbPD/frame-0133.webp">
+    <source src="https://raw.githubusercontent.com/vickkie/On-scroll-Filter/main/ACM-short.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+
+  <nav class="nav nav--opened">
+    <div class="nav--inner">
+      <button class="btn--nav" data-btn-close>
+        <div class="burger">
+          <span></span>
+        </div>
+      </button>
+      <ul>
+        <li class="nav--item" style="--item-index: 0">
+          <div class="nav-item-wrapper">
+            <span class="nav--item-link" data-splitting>HOME</span>
+          </div>
+          <span class="c-nav_main_item_image">
+            <div class="c-nav_main_item_wrap">
+              <picture>
+                <source
+                  data-load-srcset="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Autruche@2x-1.webp"
+                  type="image/webp"
+                  srcset="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Autruche@2x-1.webp"
+                />
+                <source
+                  data-load-srcset="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Autruche@2x-1.jpg"
+                  type="image/jpeg"
+                  srcset="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Autruche@2x-1.jpg"
+                />
+                <img
+                  data-load-src="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Autruche@2x-1.jpg"
+                  src="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Autruche@2x-1.jpg"
+                  alt="Paris"
+                  class="animals"
+                />
+              </picture>
+            </div>
+          </span>
+        </li>
+        <li class="nav--item" style="--item-index: 1">
+          <div class="nav-item-wrapper">
+            <span class="nav--item-link" data-splitting>ABOUT</span>
+          </div>
+          <span class="c-nav_main_item_image">
+            <div class="c-nav_main_item_wrap">
+              <picture>
+                <source
+                  data-load-srcset="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Girafe_Verte@2x.webp"
+                  type="image/webp"
+                  srcset="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Girafe_Verte@2x.webp"
+                />
+                <source
+                  data-load-srcset="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Girafe_Verte@2x.jpg"
+                  type="image/jpeg"
+                  srcset="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Girafe_Verte@2x.jpg"
+                />
+                <img
+                  data-load-src="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Girafe_Verte@2x.jpg"
+                  src="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Girafe_Verte@2x.jpg"
+                  class="animals"
+                  alt="Bordeaux"
+                />
+              </picture>
+            </div>
+          </span>
+        </li>
+        <li class="nav--item" style="--item-index: 2">
+          <div class="nav-item-wrapper">
+            <span class="nav--item-link" data-splitting>CONTACT</span>
+          </div>
+          <span class="c-nav_main_item_image">
+            <div class="c-nav_main_item_wrap">
+              <picture>
+                <source
+                  data-load-srcset="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Perroquet@2x.webp"
+                  type="image/webp"
+                  srcset="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Perroquet@2x.webp"
+                />
+                <source
+                  data-load-srcset="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Perroquet@2x.jpg"
+                  type="image/jpeg"
+                  srcset="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Perroquet@2x.jpg"
+                />
+                <img
+                  data-load-src="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Perroquet@2x.jpg"
+                  src="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Perroquet@2x.jpg"
+                  class="animals"
+                  alt="Lille"
+                />
+              </picture>
+            </div>
+          </span>
+        </li>
+        <li class="nav--item" style="--item-index: 3">
+          <div class="nav-item-wrapper">
+            <span class="nav--item-link" data-splitting>AGENCY</span>
+          </div>
+          <span class="c-nav_main_item_image">
+            <div class="c-nav_main_item_wrap">
+              <picture>
+                <source
+                  data-load-srcset="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Hibou@2x.webp"
+                  type="image/webp"
+                  srcset="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Hibou@2x.webp"
+                />
+                <source
+                  data-load-srcset="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Hibou@2x.jpg"
+                  type="image/jpeg"
+                  srcset="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Hibou@2x.jpg"
+                />
+                <img
+                  data-load-src="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Hibou@2x.jpg"
+                  src="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Hibou@2x.jpg"
+                  class="animals-2"
+                  alt="Nice"
+                />
+              </picture>
+            </div>
+          </span>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <header>
+    <button class="btn--nav" data-btn-open>
       <div class="burger">
         <span></span>
       </div>
+      <span class="btn--text" data-splitting> MENU </span>
     </button>
-    <ul>
-      <li class="nav--item" style="--item-index: 0">
-        <div class="nav-item-wrapper">
-          <span class="nav--item-link" data-splitting>HOME</span>
-        </div>
-        <span class="c-nav_main_item_image">
-          <div class="c-nav_main_item_wrap">
-            <picture>
-              <source
-                data-load-srcset="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Autruche@2x-1.webp"
-                type="image/webp"
-                srcset="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Autruche@2x-1.webp"
-              />
-              <source
-                data-load-srcset="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Autruche@2x-1.jpg"
-                type="image/jpeg"
-                srcset="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Autruche@2x-1.jpg"
-              />
-              <img
-                data-load-src="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Autruche@2x-1.jpg"
-                src="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Autruche@2x-1.jpg"
-                alt="Paris"
-                class="animals"
-              />
-            </picture>
-          </div>
-        </span>
-      </li>
-      <li class="nav--item" style="--item-index: 1">
-        <div class="nav-item-wrapper">
-          <span class="nav--item-link" data-splitting>ABOUT</span>
-        </div>
-        <span class="c-nav_main_item_image">
-          <div class="c-nav_main_item_wrap">
-            <picture>
-              <source
-                data-load-srcset="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Girafe_Verte@2x.webp"
-                type="image/webp"
-                srcset="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Girafe_Verte@2x.webp"
-              />
-              <source
-                data-load-srcset="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Girafe_Verte@2x.jpg"
-                type="image/jpeg"
-                srcset="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Girafe_Verte@2x.jpg"
-              />
-              <img
-                data-load-src="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Girafe_Verte@2x.jpg"
-                src="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Girafe_Verte@2x.jpg"
-                class="animals"
-                alt="Bordeaux"
-              />
-            </picture>
-          </div>
-        </span>
-      </li>
-      <li class="nav--item" style="--item-index: 2">
-        <div class="nav-item-wrapper">
-          <span class="nav--item-link" data-splitting>CONTACT</span>
-        </div>
-        <span class="c-nav_main_item_image">
-          <div class="c-nav_main_item_wrap">
-            <picture>
-              <source
-                data-load-srcset="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Perroquet@2x.webp"
-                type="image/webp"
-                srcset="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Perroquet@2x.webp"
-              />
-              <source
-                data-load-srcset="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Perroquet@2x.jpg"
-                type="image/jpeg"
-                srcset="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Perroquet@2x.jpg"
-              />
-              <img
-                data-load-src="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Perroquet@2x.jpg"
-                src="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Perroquet@2x.jpg"
-                class="animals"
-                alt="Lille"
-              />
-            </picture>
-          </div>
-        </span>
-      </li>
-      <li class="nav--item" style="--item-index: 3">
-        <div class="nav-item-wrapper">
-          <span class="nav--item-link" data-splitting>AGENCY</span>
-        </div>
-        <span class="c-nav_main_item_image">
-          <div class="c-nav_main_item_wrap">
-            <picture>
-              <source
-                data-load-srcset="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Hibou@2x.webp"
-                type="image/webp"
-                srcset="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Hibou@2x.webp"
-              />
-              <source
-                data-load-srcset="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Hibou@2x.jpg"
-                type="image/jpeg"
-                srcset="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Hibou@2x.jpg"
-              />
-              <img
-                data-load-src="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Hibou@2x.jpg"
-                src="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Hibou@2x.jpg"
-                class="animals-2"
-                alt="Nice"
-              />
-            </picture>
-          </div>
-        </span>
-      </li>
-    </ul>
-  </div>
-</nav>
+  </header>
+  <div class="grid-div">
+    <div class="aclass xb">U</div>
+    <div class="bclass xb">Z</div>
+    <div class="cclass xb-1">
+      <div class="support">
+        <a href="https://codepen.io/uzitrake" target="_blank"><i class="fab fa-codepen"></i></a>
 
-<header>
-  <button class="btn--nav" data-btn-open>
-    <div class="burger">
-      <span></span>
+        <a href="https://www.instagram.com/u.z.i.__/" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://dribbble.com/trake" target="_blank"><i class="fab fa-dribbble"></i></a>
+      </div>
+      <div class="inspire">Take step to inspire</div>
     </div>
-    <span class="btn--text" data-splitting> MENU </span>
-  </button>
-</header>
+    <div class="dclass xb">1</div>
+  </div>
 
-<div class="support">
-  <a href="https://codepen.io/uzitrake" target="_blank"><i class="fab fa-codepen"></i></a>
+  <link rel="stylesheet" href="https://unpkg.com/splitting/dist/splitting.css" />
+  <link rel="stylesheet" href="https://unpkg.com/splitting/dist/splitting-cells.css" />
+  <script src="https://unpkg.com/splitting/dist/splitting.min.js"></script>
 
-  <a href="https://www.instagram.com/u.z.i.__/" target="_blank"><i class="fab fa-instagram"></i></a>
-  <a href="https://dribbble.com/trake" target="_blank"><i class="fab fa-dribbble"></i></a>
-</div>
+  <script>
+    console.clear();
 
-<link rel="stylesheet" href="https://unpkg.com/splitting/dist/splitting.css" />
-<link rel="stylesheet" href="https://unpkg.com/splitting/dist/splitting-cells.css" />
-<script src="https://unpkg.com/splitting/dist/splitting.min.js"></script>
+    //   import Splitting from "https://cdn.skypack.dev/splitting@1.0.6";
 
-<script>
-  console.clear();
+    Splitting();
 
-  //   import Splitting from "https://cdn.skypack.dev/splitting@1.0.6";
+    const navOpenBtn = document.querySelector("[data-btn-open]");
+    const navCloseBtn = document.querySelector("[data-btn-close]");
+    const nav = document.querySelector(".nav");
+    let isnavOpened = true;
 
-  Splitting();
+    navOpenBtn.onclick = () => {
+      toggleNav();
+    };
 
-  const navOpenBtn = document.querySelector("[data-btn-open]");
-  const navCloseBtn = document.querySelector("[data-btn-close]");
-  const nav = document.querySelector(".nav");
-  let isnavOpened = true;
+    navCloseBtn.onclick = () => {
+      toggleNav();
+    };
 
-  navOpenBtn.onclick = () => {
-    toggleNav();
-  };
-
-  navCloseBtn.onclick = () => {
-    toggleNav();
-  };
-
-  function toggleNav() {
-    if (isnavOpened) nav.classList.remove("nav--opened");
-    else nav.classList.add("nav--opened");
-    isnavOpened = !isnavOpened;
-  }
-</script>
+    function toggleNav() {
+      if (isnavOpened) nav.classList.remove("nav--opened");
+      else nav.classList.add("nav--opened");
+      isnavOpened = !isnavOpened;
+    }
+  </script>
+</body>
