@@ -1,0 +1,486 @@
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Red+Rose:wght@700&display=swap");
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100%;
+  }
+
+  body {
+    background: #eaf9e7;
+    background-image: url("https://images.unsplash.com/photo-1548159417-f283998827c1?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2ODk3NTQ5MDF8&ixlib=rb-4.0.3&q=70");
+    background-size: cover;
+  }
+
+  button {
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  header {
+    height: 100px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(3px);
+  }
+
+  .btn--nav {
+    display: flex;
+    align-items: center;
+    padding: 6px;
+    transition: opacity 0.5s ease;
+  }
+  .btn--nav .btn--text {
+    position: relative;
+    font-size: 1.4rem;
+    font-family: "Red Rose", cursive;
+    padding: 0.1rem 0;
+    margin-left: 1.2rem;
+    color: #fff;
+  }
+  .btn--nav .btn--text .char {
+    display: inline-block;
+  }
+  .btn--nav .btn--text::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-bottom: 1px solid #fff;
+    transform-origin: right center;
+    transform: scaleX(0);
+    transition: transform 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  .btn--nav[data-btn-close] {
+    opacity: 0;
+    transition-delay: 0s;
+  }
+  .btn--nav[data-btn-close] .burger span {
+    transform: scaleX(0);
+    background: none;
+  }
+  .btn--nav[data-btn-close] .burger::before {
+    transform: translateY(6px) rotate(45deg);
+  }
+  .btn--nav[data-btn-close] .burger::after {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+  .btn--nav:not([data-btn-close]):hover .burger span {
+    transform: scaleX(0);
+  }
+  .btn--nav:not([data-btn-close]):hover .burger::before {
+    transform: translateY(3px);
+  }
+  .btn--nav:not([data-btn-close]):hover .burger::after {
+    transform: translateY(-3px);
+  }
+  .btn--nav:not([data-btn-close]):hover .btn--text::after {
+    transform-origin: left center;
+    transform: scaleX(1);
+  }
+  .btn--nav[data-btn-close]:hover .burger::before {
+    transform: translateY(3px) rotate(0deg);
+  }
+  .btn--nav[data-btn-close]:hover .burger::after {
+    transform: translateY(-3px) rotate(0deg);
+  }
+
+  .burger {
+    width: 26px;
+    height: 15px;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    position: relative;
+  }
+  .burger span {
+    display: block;
+    height: 2px;
+    background: #fff;
+    width: 100%;
+    transition: transform 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  .burger::before,
+  .burger::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    background: #fff;
+    transition: transform 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  .burger::before {
+    top: 0;
+  }
+  .burger::after {
+    bottom: 0;
+  }
+
+  .nav {
+    position: fixed;
+    inset: 0;
+    height: 0vh;
+    transition: height 0s linear 1.15s, background 1s cubic-bezier(0.645, 0.045, 0.355, 1) 0s;
+    z-index: 20;
+  }
+  .nav .btn--nav[data-btn-close] {
+    padding: 2rem;
+  }
+  .nav .nav--inner {
+    position: absolute;
+    inset: 0.7rem;
+    background: #1c2a69cc;
+    backdrop-filter: blur(4px);
+    transform: scaleX(0);
+    transform-origin: center left;
+    transition: transform 1s cubic-bezier(0.645, 0.045, 0.355, 1);
+  }
+  .nav .nav--inner ul {
+    padding-top: 10vmin;
+  }
+  .nav.nav--opened {
+    height: 100vh;
+    transition-delay: 0s;
+    background: rgba(0, 0, 0, 0.5);
+  }
+  .nav.nav--opened .btn--nav[data-btn-close] {
+    opacity: 1;
+    transition-delay: 0.6s;
+  }
+  .nav.nav--opened .nav--inner {
+    transform: scaleX(1);
+  }
+  .nav.nav--opened .nav--item::after {
+    transform: scaleX(1);
+    transition-delay: calc(0.4s + var(--item-index) * 0.1s);
+  }
+  .nav.nav--opened .nav--item-link {
+    transform: translateY(12%);
+    transition-delay: calc(0.4s + var(--item-index) * 0.1s);
+  }
+
+  .nav--item {
+    position: relative;
+    /* overflow: hidden; */
+    padding-top: 1.25rem;
+  }
+  .nav--item::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-bottom: 1px solid #fff;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.6s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition-delay: 0s;
+    pointer-events: none;
+  }
+
+  .nav--item-link {
+    display: block;
+    font-family: "Red Rose", cursive;
+    font-size: 10vmin;
+    cursor: pointer;
+    color: #fff;
+    transform: translateY(100%);
+    transition: transform 0.5s cubic-bezier(0.645, 0.045, 0.355, 1), rotate 0.2s ease;
+    transition-delay: calc(var(--item-index) * 0.05s);
+  }
+  .nav--item-link .word {
+    transform-origin: left bottom;
+    display: block;
+    transition: rotate 0.2s ease;
+    padding-left: 6rem;
+    line-height: 0.7;
+  }
+  .nav--item-link .char {
+    display: inline-block;
+  }
+  .nav--item-link:hover .word {
+    rotate: -2deg;
+  }
+  .nav--item-link:hover .char {
+    animation: scaleUpDown 0.3s forwards, colorSwap 0.2s forwards;
+    animation-delay: calc(var(--char-index) * 50ms);
+  }
+
+  .transition--wrapper {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    pointer-events: none;
+  }
+  .transition--wrapper .transition--slide {
+    position: absolute;
+    inset: 0;
+    background: var(--bg);
+    transform: scaleY(0);
+  }
+
+  @keyframes scaleUpDown {
+    0%,
+    100% {
+      scale: 1;
+    }
+    50% {
+      scale: 1.5;
+    }
+  }
+  @keyframes colorSwap {
+    60% {
+      color: #d9f3d3;
+    }
+    100% {
+      color: #38c780;
+    }
+  }
+  @keyframes colorReturn {
+    0%,
+    100% {
+      color: inherit;
+    }
+    50% {
+      color: #38c780;
+    }
+  }
+  .support {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    padding: 10px;
+    display: flex;
+  }
+  .support a {
+    margin: 0 10px;
+    color: #fff;
+    font-size: 1.8rem;
+    backface-visibility: hidden;
+    transition: all 150ms ease;
+  }
+  .support a:hover {
+    transform: scale(1.1);
+  }
+
+  /* //adedd */
+
+  @media (max-width: 1399px) {
+    .c-nav_main_item_image {
+      right: 1.875rem;
+    }
+  }
+  .c-nav_main_item_image {
+    position: absolute;
+    bottom: -1px;
+    right: 3.75rem;
+    overflow: hidden;
+    pointer-events: none;
+    height: 111px;
+  }
+  .c-nav_main_item_wrap {
+    display: block;
+    transform: translate3d(0, 110%, 0) rotate(-30deg);
+    transition: transform 0.6s cubic-bezier(0.895, 0.03, 0.685, 0.22);
+  }
+  .animals {
+    width: 69px;
+    height: 111px;
+  }
+  .animals-2 {
+    width: 109px;
+    height: 106px;
+  }
+  .nav-item-wrapper {
+    overflow: hidden;
+  }
+
+  .nav--item:hover .c-nav_main_item_wrap {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    transition-delay: 0.2s;
+    transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+</style>
+
+<nav class="nav nav--opened">
+  <div class="nav--inner">
+    <button class="btn--nav" data-btn-close>
+      <div class="burger">
+        <span></span>
+      </div>
+    </button>
+    <ul>
+      <li class="nav--item" style="--item-index: 0">
+        <div class="nav-item-wrapper">
+          <span class="nav--item-link" data-splitting>HOME</span>
+        </div>
+        <span class="c-nav_main_item_image">
+          <div class="c-nav_main_item_wrap">
+            <picture>
+              <source
+                data-load-srcset="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Autruche@2x-1.webp"
+                type="image/webp"
+                srcset="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Autruche@2x-1.webp"
+              />
+              <source
+                data-load-srcset="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Autruche@2x-1.jpg"
+                type="image/jpeg"
+                srcset="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Autruche@2x-1.jpg"
+              />
+              <img
+                data-load-src="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Autruche@2x-1.jpg"
+                src="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Autruche@2x-1.jpg"
+                alt="Paris"
+                class="animals"
+              />
+            </picture>
+          </div>
+        </span>
+      </li>
+      <li class="nav--item" style="--item-index: 1">
+        <div class="nav-item-wrapper">
+          <span class="nav--item-link" data-splitting>ABOUT</span>
+        </div>
+        <span class="c-nav_main_item_image">
+          <div class="c-nav_main_item_wrap">
+            <picture>
+              <source
+                data-load-srcset="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Girafe_Verte@2x.webp"
+                type="image/webp"
+                srcset="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Girafe_Verte@2x.webp"
+              />
+              <source
+                data-load-srcset="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Girafe_Verte@2x.jpg"
+                type="image/jpeg"
+                srcset="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Girafe_Verte@2x.jpg"
+              />
+              <img
+                data-load-src="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Girafe_Verte@2x.jpg"
+                src="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Girafe_Verte@2x.jpg"
+                class="animals"
+                alt="Bordeaux"
+              />
+            </picture>
+          </div>
+        </span>
+      </li>
+      <li class="nav--item" style="--item-index: 2">
+        <div class="nav-item-wrapper">
+          <span class="nav--item-link" data-splitting>CONTACT</span>
+        </div>
+        <span class="c-nav_main_item_image">
+          <div class="c-nav_main_item_wrap">
+            <picture>
+              <source
+                data-load-srcset="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Perroquet@2x.webp"
+                type="image/webp"
+                srcset="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Perroquet@2x.webp"
+              />
+              <source
+                data-load-srcset="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Perroquet@2x.jpg"
+                type="image/jpeg"
+                srcset="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Perroquet@2x.jpg"
+              />
+              <img
+                data-load-src="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Perroquet@2x.jpg"
+                src="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Perroquet@2x.jpg"
+                class="animals"
+                alt="Lille"
+              />
+            </picture>
+          </div>
+        </span>
+      </li>
+      <li class="nav--item" style="--item-index: 3">
+        <div class="nav-item-wrapper">
+          <span class="nav--item-link" data-splitting>AGENCY</span>
+        </div>
+        <span class="c-nav_main_item_image">
+          <div class="c-nav_main_item_wrap">
+            <picture>
+              <source
+                data-load-srcset="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Hibou@2x.webp"
+                type="image/webp"
+                srcset="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Hibou@2x.webp"
+              />
+              <source
+                data-load-srcset="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Hibou@2x.jpg"
+                type="image/jpeg"
+                srcset="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Hibou@2x.jpg"
+              />
+              <img
+                data-load-src="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Hibou@2x.jpg"
+                src="https://tigermilkrestaurants.com/wp-content/uploads/2023/03/Hibou@2x.jpg"
+                class="animals-2"
+                alt="Nice"
+              />
+            </picture>
+          </div>
+        </span>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<header>
+  <button class="btn--nav" data-btn-open>
+    <div class="burger">
+      <span></span>
+    </div>
+    <span class="btn--text" data-splitting> MENU </span>
+  </button>
+</header>
+
+<div class="support">
+  <a href="https://codepen.io/uzitrake" target="_blank"><i class="fab fa-codepen"></i></a>
+
+  <a href="https://www.instagram.com/u.z.i.__/" target="_blank"><i class="fab fa-instagram"></i></a>
+  <a href="https://dribbble.com/trake" target="_blank"><i class="fab fa-dribbble"></i></a>
+</div>
+
+<link rel="stylesheet" href="https://unpkg.com/splitting/dist/splitting.css" />
+<link rel="stylesheet" href="https://unpkg.com/splitting/dist/splitting-cells.css" />
+<script src="https://unpkg.com/splitting/dist/splitting.min.js"></script>
+
+<script>
+  console.clear();
+
+  //   import Splitting from "https://cdn.skypack.dev/splitting@1.0.6";
+
+  Splitting();
+
+  const navOpenBtn = document.querySelector("[data-btn-open]");
+  const navCloseBtn = document.querySelector("[data-btn-close]");
+  const nav = document.querySelector(".nav");
+  let isnavOpened = true;
+
+  navOpenBtn.onclick = () => {
+    toggleNav();
+  };
+
+  navCloseBtn.onclick = () => {
+    toggleNav();
+  };
+
+  function toggleNav() {
+    if (isnavOpened) nav.classList.remove("nav--opened");
+    else nav.classList.add("nav--opened");
+    isnavOpened = !isnavOpened;
+  }
+</script>
